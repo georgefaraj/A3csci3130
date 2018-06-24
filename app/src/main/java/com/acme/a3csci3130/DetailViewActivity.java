@@ -11,12 +11,14 @@ public class DetailViewActivity extends Activity {
 
     private EditText nameField, numberField,addressField;
     private Spinner primaryBField,provinceField;
+    private MyApplicationData appState;
     Business receivedBusyInfo;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_detail_view);
+        appState = ((MyApplicationData) getApplicationContext());
         receivedBusyInfo = (Business)getIntent().getSerializableExtra("Business");
 
         nameField = (EditText) findViewById(R.id.name);
@@ -36,6 +38,7 @@ public class DetailViewActivity extends Activity {
         // Apply the adapter to the spinner
         primaryBField.setAdapter(PBadapter);
         provinceField.setAdapter(PRadapter);
+
         int spinnerPosition;
 
         if(receivedBusyInfo != null){
@@ -51,8 +54,18 @@ public class DetailViewActivity extends Activity {
         }
     }
 
+    //TODO: Test update
     public void updateContact(View v){
-        //TODO: Update contact funcionality
+        String businessID = receivedBusyInfo.uid;
+        String name = nameField.getText().toString();
+        int number = Integer.parseInt( numberField.getText().toString() );
+        String addr = addressField.getText().toString();
+        String prov = provinceField.getSelectedItem().toString();
+        String type = primaryBField.getSelectedItem().toString();
+        Business busy = new Business(businessID,number,name,type,addr,prov);
+        appState.firebaseReference.child(receivedBusyInfo.uid.toString()).setValue(busy);
+
+        finish();
     }
 
     public void eraseContact(View v)
