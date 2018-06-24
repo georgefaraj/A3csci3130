@@ -54,7 +54,6 @@ public class DetailViewActivity extends Activity {
         }
     }
 
-    //TODO: Test update
     public void updateContact(View v){
         String businessID = receivedBusyInfo.uid;
         String name = nameField.getText().toString();
@@ -68,8 +67,11 @@ public class DetailViewActivity extends Activity {
         finish();
     }
 
+    
     public void eraseContact(View v)
     {
-        //TODO: Erase contact functionality
+        appState.firebaseReference.child(receivedBusyInfo.uid.toString()).removeValue();
+
+        finish();
     }
 }
