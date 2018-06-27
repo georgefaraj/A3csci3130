@@ -7,11 +7,16 @@ import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Spinner;
+import android.widget.TextView;
+
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
 
 public class CreateContactAcitivity extends Activity {
 
     private Button submitButton;
     private EditText nameField, numberField,addressField;
+    private TextView errorText;
     private Spinner primaryBField,provinceField;
     private MyApplicationData appState;
 
@@ -27,6 +32,8 @@ public class CreateContactAcitivity extends Activity {
         addressField = (EditText) findViewById(R.id.address);
         primaryBField = (Spinner) findViewById(R.id.primaryB);
         provinceField = (Spinner) findViewById(R.id.province);
+        errorText = (TextView) findViewById(R.id.errorText2);
+        errorText.setVisibility(View.INVISIBLE);
         // Create an ArrayAdapter using the string array and a default spinner layout
         ArrayAdapter<CharSequence> PBadapter = ArrayAdapter.createFromResource(this,
                 R.array.business_types, android.R.layout.simple_spinner_item);
@@ -44,15 +51,26 @@ public class CreateContactAcitivity extends Activity {
         //each entry needs a unique ID
         String businessID = appState.firebaseReference.push().getKey();
         String name = nameField.getText().toString();
-        int number = Integer.parseInt( numberField.getText().toString() );
+        int number;
+        if(numberField.getText().toString().isEmpty())
+            number = 0;
+        else
+            number = Integer.parseInt( numberField.getText().toString() );
         String addr = addressField.getText().toString();
         String prov = provinceField.getSelectedItem().toString();
         String type = primaryBField.getSelectedItem().toString();
         Business busy = new Business(businessID,number,name,type,addr,prov);
 
-        appState.firebaseReference.child(businessID).setValue(busy);
-
-        finish();
+        appState.firebaseReference.child(businessID).setValue(busy,new DatabaseReference.CompletionListener() {
+            public void onComplete(DatabaseError error, DatabaseReference ref) {
+                if(error == null) {
+                    finish();
+                }
+                else{
+                    errorText.setVisibility(View.VISIBLE);
+                }
+            }
+        });
 
     }
 }

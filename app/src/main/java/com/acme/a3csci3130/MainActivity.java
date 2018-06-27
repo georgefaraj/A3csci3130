@@ -14,7 +14,7 @@ import com.google.firebase.database.FirebaseDatabase;
 public class MainActivity extends Activity {
 
 
-    private ListView contactListView;
+    private ListView businessListView;
     private FirebaseListAdapter<Business> firebaseAdapter;
 
     @Override
@@ -30,7 +30,7 @@ public class MainActivity extends Activity {
         appData.firebaseReference = appData.firebaseDBInstance.getReference("businesses");
 
         //Get the reference to the UI contents
-        contactListView = (ListView) findViewById(R.id.listView);
+        businessListView = (ListView) findViewById(R.id.listView);
 
         //Set up the List View
        firebaseAdapter = new FirebaseListAdapter<Business>(this, Business.class,
@@ -41,8 +41,8 @@ public class MainActivity extends Activity {
                 contactName.setText(model.name);
             }
         };
-        contactListView.setAdapter(firebaseAdapter);
-        contactListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+        businessListView.setAdapter(firebaseAdapter);
+        businessListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             // onItemClick method is called everytime a user clicks an item on the list
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
