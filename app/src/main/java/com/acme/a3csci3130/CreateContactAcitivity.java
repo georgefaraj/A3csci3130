@@ -51,11 +51,7 @@ public class CreateContactAcitivity extends Activity {
         //each entry needs a unique ID
         String businessID = appState.firebaseReference.push().getKey();
         String name = nameField.getText().toString();
-        int number;
-        if(numberField.getText().toString().isEmpty())
-            number = 0;
-        else
-            number = Integer.parseInt( numberField.getText().toString() );
+        String number = numberField.getText().toString();
         String addr = addressField.getText().toString();
         String prov = provinceField.getSelectedItem().toString();
         String type = primaryBField.getSelectedItem().toString();

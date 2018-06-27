@@ -6,11 +6,16 @@ import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.EditText;
 import android.widget.Spinner;
+import android.widget.TextView;
+
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
 
 public class DetailViewActivity extends Activity {
 
     private EditText nameField, numberField,addressField;
     private Spinner primaryBField,provinceField;
+    private TextView errorText;
     private MyApplicationData appState;
     Business receivedBusyInfo;
 
@@ -26,6 +31,8 @@ public class DetailViewActivity extends Activity {
         addressField = (EditText) findViewById(R.id.address);
         primaryBField = (Spinner) findViewById(R.id.primaryB);
         provinceField = (Spinner) findViewById(R.id.province);
+        errorText = (TextView) findViewById(R.id.errorText);
+        errorText.setVisibility(View.INVISIBLE);
 
         // Create an ArrayAdapter using the string array and a default spinner layout
         ArrayAdapter<CharSequence> PBadapter = ArrayAdapter.createFromResource(this,
@@ -57,14 +64,21 @@ public class DetailViewActivity extends Activity {
     public void updateContact(View v){
         String businessID = receivedBusyInfo.uid;
         String name = nameField.getText().toString();
-        int number = Integer.parseInt( numberField.getText().toString() );
+        String number =  numberField.getText().toString();
         String addr = addressField.getText().toString();
         String prov = provinceField.getSelectedItem().toString();
         String type = primaryBField.getSelectedItem().toString();
         Business busy = new Business(businessID,number,name,type,addr,prov);
-        appState.firebaseReference.child(receivedBusyInfo.uid.toString()).setValue(busy);
-
-        finish();
+        appState.firebaseReference.child(receivedBusyInfo.uid.toString()).setValue(busy,new DatabaseReference.CompletionListener() {
+            public void onComplete(DatabaseError error, DatabaseReference ref) {
+                if(error == null) {
+                    finish();
+                }
+                else{
+                    errorText.setVisibility(View.VISIBLE);
+                }
+            }
+        });
     }
 
     
