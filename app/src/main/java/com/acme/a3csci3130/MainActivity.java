@@ -68,11 +68,11 @@ public class MainActivity extends Activity {
     }
 
     /**
-     * The createContactButton method switches the user from the MainActivity to the CreateContactActivity
+     * The createContactButton method switches the user from the MainActivity to the CreateBusinessActivity
      */
     public void createContactButton(View v)
     {
-        Intent intent=new Intent(this, CreateContactAcitivity.class);
+        Intent intent=new Intent(this, CreateBusinessActivity.class);
         startActivity(intent);
     }
 

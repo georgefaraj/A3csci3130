@@ -13,7 +13,7 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 
 /**
- * The CreateContactAcitivity program shows all the details required to create a Business object
+ * The CreateBusinessActivity program shows all the details required to create a Business object
  * It also provides a method for the user to upload this information and will let them know if it got rejected
  *
  * It defines: onCreate(Bundle savedInstanceState) and submitInfoButton(View v)
@@ -23,7 +23,7 @@ import com.google.firebase.database.DatabaseReference;
  * @author  George Faraj
  * @since   2018-06-28
  */
-public class CreateContactAcitivity extends Activity {
+public class CreateBusinessActivity extends Activity {
 
     private Button submitButton;
     private EditText nameField, numberField,addressField;
@@ -32,14 +32,14 @@ public class CreateContactAcitivity extends Activity {
     private MyApplicationData appState;
 
     /**
-     * The onCreate method starts up the CreateContactActivity
+     * The onCreate method starts up the CreateBusinessActivity
      * A very important part of this method is that it initializes all the text inputs
      * The inputs are global private variables that all the other methods use
      */
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_create_contact_acitivity);
+        setContentView(R.layout.activity_create_business_acitivity);
         //Get the app wide shared variables
         appState = ((MyApplicationData) getApplicationContext());
         submitButton = (Button) findViewById(R.id.submitButton);
