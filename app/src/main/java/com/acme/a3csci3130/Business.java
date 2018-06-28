@@ -12,10 +12,28 @@ import java.util.Map;
  * Firebase databse. This is converted to a JSON format
  */
 
+/**
+ * The Business.java Class is the object that we wish to store and read from the Firebase
+ *
+ * It contains:
+ *      String uid
+ *      String number
+ *      String name
+ *      String primaryB
+ *      String address
+ *      String province
+ *
+ * All of which behave in accordance to the Assignment 3 description
+ *
+ * The code is forked from Juliano Franz A3CSCI3130 Branch and modified by me, George F.
+ *
+ * @author  George Faraj
+ * @since   2018-06-28
+ */
 public class Business implements Serializable {
 
     public  String  uid;
-    public  String     number;
+    public  String  number;
     public  String  name;
     public  String  primaryB;
     public  String  address;

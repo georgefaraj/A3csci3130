@@ -44,15 +44,27 @@ import static org.hamcrest.core.AllOf.allOf;
 import static org.junit.Assert.*;
 
 /**
- * Instrumentation test, which will execute on an Android device.
+ * The ExampleInstrumentedTest program implements a series of Espresso
+ * based tests to check CRUD functionality for the businesses created
  *
- * @see <a href="http://d.android.com/tools/testing">Testing documentation</a>
+ * It defines: useAppContext(), createValidBusy(), deleteBusy(), updateBusy(), createInvalidBusy(), and updateInvalidBusy()
+ *
+ * The code used to get the last item in a ListView is based on an online source
+ * This is cited in my assignment document.
+ *
+ * @author  George Faraj
+ * @since   2018-06-28
  */
 @RunWith(AndroidJUnit4.class)
 public class ExampleInstrumentedTest {
     @Rule
     public ActivityTestRule<MainActivity> menuActivityTestRule = new ActivityTestRule<>(MainActivity.class);
 
+
+    /**
+     * The useAppContext method is a Espresso test
+     * It is a default test that checks that the app starts up properly
+     */
     @Test
     public void useAppContext() throws Exception {
         // Context of the app under test.
@@ -61,6 +73,12 @@ public class ExampleInstrumentedTest {
         assertEquals("com.acme.a3csci3130", appContext.getPackageName());
     }
 
+
+    /**
+     * The createValidBusy() method is a Espresso test
+     * It is a test I designed that checks that the user can Create a business
+     * It passes by Reading the business on the home screen
+     */
     @Test
     public void createValidBusy() throws InterruptedException{
 
@@ -103,6 +121,12 @@ public class ExampleInstrumentedTest {
         onData(anything()).inAdapterView(withId(R.id.listView)).atPosition(numberOfAdapterItems[0] - 1).check(matches(withText("ABC Business")));
     }
 
+
+    /**
+     * The deleteBusy() method is a Espresso test
+     * It is a test I designed that checks that the user can Delete a business
+     * It passes by ensuring that the count of businesses is one less after the actions are performed
+     */
     @Test
     public void deleteBusy() throws InterruptedException{
         Thread.sleep(2000);
@@ -143,6 +167,11 @@ public class ExampleInstrumentedTest {
         assertTrue(NEWnumberOfAdapterItems[0]==numberOfAdapterItems[0]-1);
     }
 
+    /**
+     * The updateBusy() method is a Espresso test
+     * It is a test I designed that checks that the user can Update a business' information
+     * It passes by ensuring that the modified businesses has a new name on the ListView
+     */
     @Test
     public void updateBusy() throws InterruptedException{
         Thread.sleep(2000);
@@ -170,6 +199,11 @@ public class ExampleInstrumentedTest {
         onData(anything()).inAdapterView(withId(R.id.listView)).atPosition(numberOfAdapterItems[0] - 1).check(matches(withText("CBA Business")));
     }
 
+    /**
+     * The createInvalid() method is a Espresso test
+     * It is a test I designed that checks that the user cannot Create a business' whose information contains invalid data
+     * It passes by ensuring that the error message appears on the CreateContactActivity
+     */
     @Test
     public void createInvalidBusy() throws InterruptedException {
 
@@ -196,6 +230,11 @@ public class ExampleInstrumentedTest {
         onView(withId(R.id.errorText2)).check(matches(isDisplayed()));
     }
 
+    /**
+     * The updateBusy() method is a Espresso test
+     * It is a test I designed that checks that the user cannot Update a business' information if the add invalid data
+     * It passes by ensuring that the error message appears on the DetailViewActivity
+     */
     @Test
     public void updateInvalidBusy() throws InterruptedException {
         Thread.sleep(1000);

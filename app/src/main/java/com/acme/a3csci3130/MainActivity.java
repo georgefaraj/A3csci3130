@@ -11,12 +11,27 @@ import android.widget.TextView;
 import com.firebase.ui.database.FirebaseListAdapter;
 import com.google.firebase.database.FirebaseDatabase;
 
+
+/**
+ * The MainActivity program acts as the home page for the app
+ * that performs CRUD functions for the a business class defined in Assignment 3
+ *
+ * It defines: onCreate(Bundle savedInstanceState) and createContactButton(View v)
+ *
+ * The code is forked from Juliano Franz A3CSCI3130 Branch and modified by me, George F.
+ *
+ * @author  George Faraj
+ * @since   2018-06-28
+ */
 public class MainActivity extends Activity {
 
 
     private ListView businessListView;
     private FirebaseListAdapter<Business> firebaseAdapter;
 
+    /**
+     * The onCreate method starts up the app and initializes the connection to the database
+     */
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -52,6 +67,9 @@ public class MainActivity extends Activity {
         });
     }
 
+    /**
+     * The createContactButton method switches the user from the MainActivity to the CreateContactActivity
+     */
     public void createContactButton(View v)
     {
         Intent intent=new Intent(this, CreateContactAcitivity.class);
