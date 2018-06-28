@@ -6,7 +6,7 @@
     android:id="@+id/errorText"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="com.acme.a3csci3130.CreateContactAcitivity">
+    tools:context="com.acme.a3csci3130.CreateBusinessActivity">
 
     <TextView
         android:id="@+id/errorText2"
